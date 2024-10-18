@@ -1,0 +1,79 @@
+<mat-card>
+  <mat-card-title>Novo Produto</mat-card-title>
+  <form>
+    <mat-form-field>
+      <mat-label>Nome do Produto</mat-label>
+      <input
+        matInput
+        placeholder="Nome"
+        [(ngModel)]="product.nome"
+        name="nome"
+        maxlength="15"
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Preço de Venda (R$)</mat-label>
+      <input
+        matInput
+        placeholder="Digite o preço"
+        [(ngModel)]="product.precoDeVenda"
+        name="precoDeVenda"
+        type="number"
+        (focus)="onFocus()"
+        (blur)="onBlur()"
+      />
+    </mat-form-field>
+    
+    
+    <mat-form-field>
+      <mat-label>Descrição do Produto</mat-label>
+      <textarea
+        matInput
+        placeholder="Descrição do produto"
+        [(ngModel)]="product.descricao"
+        name="descricao"
+        maxlength="30"
+      ></textarea>
+    </mat-form-field>
+    
+    <mat-form-field>
+      <mat-label>Quantidade de Produtos</mat-label>
+      <input
+        matInput
+        placeholder="Insira a quantidade"
+        [ngModel]="product.quantidade === 0 ? '' : product.quantidade" 
+        name="quantidade"
+        [ngModelOptions]="{ standalone: true }"
+        type="number"
+        (focus)="onQuantidadeFocus()"
+        (blur)="onQuantidadeBlur()"
+        (ngModelChange)="product.quantidade = $event ? +$event : 0"
+      />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Tipo do Produto</mat-label>
+      <mat-select placeholder="Tipo" [(ngModel)]="product.tipo" name="tipo">
+        <mat-option [value]="0">Orgânico</mat-option>
+        <mat-option [value]="1">Não Orgânico</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Data de Cadastro</mat-label>
+      <input
+        matInput
+        type="date"
+        [(ngModel)]="product.dataDeCadastro"
+        name="dataDeCadastro"
+        placeholder="Selecione a data"
+      />
+    </mat-form-field>
+  </form>
+</mat-card>
+<div>
+  <button mat-raised-button (click)="createProduct()" color="primary">
+    Salvar
+  </button>
+
+  <button mat-raised-button (click)="cancel()">Cancelar</button>
+</div>

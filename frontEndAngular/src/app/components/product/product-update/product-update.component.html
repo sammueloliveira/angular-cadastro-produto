@@ -1,0 +1,42 @@
+<mat-card>
+  <mat-card-title>Editar Produto</mat-card-title>
+  <form (ngSubmit)="editProduct()">
+    <mat-form-field>
+      <mat-label>Nome do Produto</mat-label>
+      <input matInput placeholder="Nome" [(ngModel)]="product.nome" name="nome" required />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Preço de Venda</mat-label>
+      <input matInput placeholder="Preço (R$)" [(ngModel)]="product.precoDeVenda" name="precoDeVenda" type="number" required />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Descrição do Produto</mat-label>
+      <textarea matInput placeholder="Descrição" [(ngModel)]="product.descricao" name="descricao" required></textarea>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Quantidade</mat-label>
+      <input matInput placeholder="Quantidade" [(ngModel)]="product.quantidade" name="quantidade" type="number" required />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Tipo</mat-label>
+      <mat-select [(ngModel)]="product.tipo" name="tipo" required>
+        <mat-option *ngFor="let tipo of tipos" [value]="tipo">{{ getTipoProduto(tipo) }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Data de Cadastro</mat-label>
+      <input
+        matInput
+        placeholder="Data de Cadastro (dd/MM/yyyy)"
+        [(ngModel)]="product.dataDeCadastro"
+        name="dataDeCadastro"
+        type="text" 
+        required
+      />
+    </mat-form-field>
+    <div>
+      <button mat-raised-button type="submit" color="primary">Editar</button>
+      <button mat-raised-button (click)="cancel()" color="warn">Cancelar</button>
+    </div>
+  </form>
+</mat-card>

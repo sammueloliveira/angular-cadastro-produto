@@ -1,0 +1,13 @@
+<div *ngIf="product">
+  <h2>Detalhes do Produto</h2>
+  <p><strong>Nome:</strong> {{ product.nome }}</p>
+  <p><strong>Preço de Venda:</strong> {{ product.precoDeVenda | currency: 'BRL' }}</p>
+  <p><strong>Descrição:</strong> {{ product.descricao }}</p>
+  <p><strong>Quantidade:</strong> {{ product.quantidade }}</p>
+  <p><strong>Tipo:</strong> {{ getTipoProduto(product.tipo) }}</p>
+  <p><strong>Data de Cadastro:</strong> {{ product.dataDeCadastro }}</p>
+</div>
+
+<div>
+  <button mat-raised-button routerLink="/products" color="primary">Voltar</button>
+</div>

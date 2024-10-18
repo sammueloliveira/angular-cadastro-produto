@@ -1,0 +1,31 @@
+.toolbar {
+    display: flex;
+    position: fixed;
+    bottom:0;
+    justify-content: flex-end;
+  }
+  
+  .toolbar-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-right: 8px;
+  }
+  
+  .animated-title {
+    font-size: 24px;
+    font-weight: bold;
+    animation: slide 1s infinite alternate;
+    transition: color 0.5s;
+  }
+  
+  @keyframes slide {
+    0% {
+      transform: translateY(0);
+      color: white; 
+    }
+    100% {
+      transform: translateY(-5px);
+      color: black;
+    }
+  }
+  
