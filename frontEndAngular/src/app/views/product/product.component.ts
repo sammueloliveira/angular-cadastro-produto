@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { Router, RouterModule } from '@angular/router';
 import { ProductReadComponent } from "../../components/product/product-read/product-read.component";
-import { HeaderService } from '../../components/template/header/header.service';
+import { HeaderService } from '../../services/header.service';
 
 @Component({
   selector: 'app-product',

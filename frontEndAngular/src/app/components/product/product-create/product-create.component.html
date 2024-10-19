@@ -1,6 +1,6 @@
 <mat-card>
   <mat-card-title>Novo Produto</mat-card-title>
-  <form>
+  <form #productForm="ngForm">
     <mat-form-field>
       <mat-label>Nome do Produto</mat-label>
       <input
@@ -9,8 +9,11 @@
         [(ngModel)]="product.nome"
         name="nome"
         maxlength="15"
+        required
       />
+      <mat-error *ngIf="productForm.submitted && !product.nome">Nome é obrigatório.</mat-error>
     </mat-form-field>
+
     <mat-form-field>
       <mat-label>Preço de Venda (R$)</mat-label>
       <input
@@ -19,11 +22,12 @@
         [(ngModel)]="product.precoDeVenda"
         name="precoDeVenda"
         type="number"
+        required
         (focus)="onFocus()"
         (blur)="onBlur()"
       />
+      <mat-error *ngIf="productForm.submitted && !product.precoDeVenda">Preço é obrigatório.</mat-error>
     </mat-form-field>
-    
     
     <mat-form-field>
       <mat-label>Descrição do Produto</mat-label>
@@ -33,7 +37,9 @@
         [(ngModel)]="product.descricao"
         name="descricao"
         maxlength="30"
+        required
       ></textarea>
+      <mat-error *ngIf="productForm.submitted && !product.descricao">Descrição é obrigatória.</mat-error>
     </mat-form-field>
     
     <mat-form-field>
@@ -49,15 +55,18 @@
         (blur)="onQuantidadeBlur()"
         (ngModelChange)="product.quantidade = $event ? +$event : 0"
       />
+      <mat-error *ngIf="productForm.submitted && product.quantidade === null">Quantidade é obrigatória.</mat-error>
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Tipo do Produto</mat-label>
-      <mat-select placeholder="Tipo" [(ngModel)]="product.tipo" name="tipo">
+      <mat-select placeholder="Tipo" [(ngModel)]="product.tipo" name="tipo" required>
         <mat-option [value]="0">Orgânico</mat-option>
         <mat-option [value]="1">Não Orgânico</mat-option>
       </mat-select>
+      <mat-error *ngIf="productForm.submitted && !product.tipo">Tipo é obrigatório.</mat-error>
     </mat-form-field>
+
     <mat-form-field>
       <mat-label>Data de Cadastro</mat-label>
       <input
@@ -66,12 +75,14 @@
         [(ngModel)]="product.dataDeCadastro"
         name="dataDeCadastro"
         placeholder="Selecione a data"
+        required
       />
+      <mat-error *ngIf="productForm.submitted && !product.dataDeCadastro">Data é obrigatória.</mat-error>
     </mat-form-field>
   </form>
 </mat-card>
 <div>
-  <button mat-raised-button (click)="createProduct()" color="primary">
+  <button mat-raised-button (click)="createProduct(productForm)" color="primary">
     Salvar
   </button>
 

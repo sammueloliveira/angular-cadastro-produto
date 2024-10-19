@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
-import { HeaderService } from './header.service';
+import { HeaderService } from '../../../services/header.service';
 
 @Component({
   selector: 'app-header',

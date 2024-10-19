@@ -5,10 +5,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { Product } from '../../../interfaces/product.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { TipoProdutoEnum } from '../../../enums/tipo.produto.enum';
+import { CommonModule } from '@angular/common'; 
 
 @Component({
   selector: 'app-product-create',
@@ -21,6 +22,7 @@ import { TipoProdutoEnum } from '../../../enums/tipo.produto.enum';
     MatInputModule,
     MatCardModule,
     MatSelectModule,
+    CommonModule, 
   ],
   templateUrl: './product-create.component.html',
   styleUrls: ['./product-create.component.css'],
@@ -35,71 +37,70 @@ export class ProductCreateComponent implements OnInit {
     tipo: TipoProdutoEnum.Organico,
     dataDeCadastro: '',
   };
-   
+
   constructor(private productService: ProductService, private router: Router) {}
 
   ngOnInit(): void {}
 
-  createProduct(): void {
-    const dateParts = this.product.dataDeCadastro.split('-');
+  createProduct(form: NgForm): void {
+    if (form.valid) {
+      const dateParts = this.product.dataDeCadastro.split('-');
 
-    if (dateParts.length === 3) {
-      const [year, month, day] = dateParts.map((part) => parseInt(part, 10));
+      if (dateParts.length === 3) {
+        const [year, month, day] = dateParts.map((part) => parseInt(part, 10));
 
-      const formattedDate = `${day.toString().padStart(2, '0')}/${month
-        .toString()
-        .padStart(2, '0')}/${year}`;
+        const formattedDate = `${day.toString().padStart(2, '0')}/${month
+          .toString()
+          .padStart(2, '0')}/${year}`;
 
-      const productToCreate: Product = {
-        ...this.product,
-        dataDeCadastro: formattedDate,
-      };
+        const productToCreate: Product = {
+          ...this.product,
+          dataDeCadastro: formattedDate,
+        };
 
-      this.productService.create(productToCreate).subscribe({
-        next: (createdProduct) => {
-          this.productService.showMessage('Produto cadastrado com sucesso!');
-          console.log('Produto criado:', createdProduct);
-          this.router.navigate(['/products']);
-        },
-        error: (e) => {
-          console.error('Erro ao criar produto:', e);
-          if (e.error) {
-            console.error('Detalhes do erro da API:', e.error);
-          }
-          this.productService.showMessage('Erro ao cadastrar produto!');
-        },
-      });
+        this.productService.create(productToCreate).subscribe({
+          next: (createdProduct) => {
+            this.productService.showMessage('Produto cadastrado com sucesso!');
+            this.router.navigate(['/products']);
+          },
+          error: (e) => {
+            this.productService.showMessage('Erro ao cadastrar produto!');
+          },
+        });
+      } else {
+        this.productService.showMessage('Formato de data inválido!');
+      }
     } else {
-      console.error('Formato de data inválido');
-      this.productService.showMessage('Formato de data inválido!');
+      form.form.markAllAsTouched(); 
+      this.productService.showMessage('Por favor, preencha todos os campos obrigatórios.');
     }
   }
 
   cancel(): void {
     this.router.navigate(['/products']);
   }
-  
+
   onFocus() {
     if (this.product.precoDeVenda === 0) {
-      this.product.precoDeVenda = null; 
+      this.product.precoDeVenda = null;
     }
   }
 
   onBlur() {
     if (this.product.precoDeVenda === null) {
-      this.product.precoDeVenda = 0; 
+      this.product.precoDeVenda = 0;
     }
   }
-  
-    onQuantidadeFocus() {
+
+  onQuantidadeFocus() {
     if (this.product.quantidade === 0) {
-      this.product.quantidade = null; 
+      this.product.quantidade = null;
     }
   }
 
   onQuantidadeBlur() {
     if (this.product.quantidade === null) {
-      this.product.quantidade = 0; 
+      this.product.quantidade = 0;
     }
   }
 }

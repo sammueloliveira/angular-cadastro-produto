@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-import { HeaderService } from '../../components/template/header/header.service';
+import { HeaderService } from '../../services/header.service';
 
 @Component({
   selector: 'app-home',
