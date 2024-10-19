@@ -18,7 +18,6 @@ export class ProductService {
       duration: 3000,
       horizontalPosition: 'right',
       verticalPosition: 'top',
-      panelClass: ['msg-success'],
     });
   }
 
@@ -38,23 +37,23 @@ export class ProductService {
 
   readById(id: string): Observable<Product> {
     const url = `${this.baseUrl}/${id}`;
-    return this.http.get<Product>(url).pipe(
-      catchError((e) => this.errorHandler(e))
-    );
+    return this.http
+      .get<Product>(url)
+      .pipe(catchError((e) => this.errorHandler(e)));
   }
 
   update(product: Product): Observable<Product> {
     const url = `${this.baseUrl}/${product.id}`;
-    return this.http.put<Product>(url, product).pipe(
-      catchError((e) => this.errorHandler(e))
-    );
+    return this.http
+      .put<Product>(url, product)
+      .pipe(catchError((e) => this.errorHandler(e)));
   }
 
   delete(id: string): Observable<void> {
     const url = `${this.baseUrl}/${id}`;
-    return this.http.delete<void>(url).pipe(
-      catchError((e) => this.errorHandler(e))
-    );
+    return this.http
+      .delete<void>(url)
+      .pipe(catchError((e) => this.errorHandler(e)));
   }
 
   errorHandler(e: any): Observable<any> {
